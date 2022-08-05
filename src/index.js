@@ -11,9 +11,6 @@ app.set('view engine', 'hbs');
 
 app.set('views', './src/views');
 
-app.get('/', (req, res) => {
-    res.render('index');
-});
 
 app.use(routes);
 

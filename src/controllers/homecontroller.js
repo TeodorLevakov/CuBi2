@@ -1,3 +1,8 @@
 exports.index = (req, res) => {
-    res.send('Hi index');
+    res.render('index.hbs');
 };
+
+
+exports.about = (req, res) => {
+    res.render('about.hbs');
+}
