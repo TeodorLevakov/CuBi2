@@ -1,10 +1,23 @@
+const router = require('express').Router();
 const cubes = require('../db.json');
 
-exports.index = (req, res) => {
+
+
+router.get('/', (req, res) => {
     res.render('index', { cubes: cubes });
-};
+});
 
-
-exports.about = (req, res) => {
+router.get('/about', (req, res) => {
     res.render('about.hbs');
-}
+});
+
+
+// exports.index = (req, res) => {
+//     res.render('index', { cubes: cubes });
+// };
+
+// exports.about = (req, res) => {
+//     res.render('about.hbs');
+// }
+
+module.exports = router;
