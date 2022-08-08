@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
     let { search, from, to} = req.query;
     let cubes = cubeService.getAll(search, from, to);
 
-    res.render('index', { cubes: cubes });
+    res.render('index', { cubes: cubes, search, from, to});
 });
 
 router.get('/about', (req, res) => {
