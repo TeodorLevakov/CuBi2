@@ -3,10 +3,10 @@ const cubeService = require('../services/cubeService.js');
 
 
 
-router.get('/', (req, res) => {
+router.get('/',async (req, res) => {
 
     let { search, from, to} = req.query;
-    let cubes = cubeService.getAll(search, from, to);
+    let cubes = await cubeService.getAll(search, from, to);
 
     res.render('index', { cubes: cubes, search, from, to});
 });

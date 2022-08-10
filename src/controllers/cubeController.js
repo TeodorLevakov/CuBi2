@@ -5,7 +5,7 @@ router.get('/create', (req, res) => {
     res.render('create');
 });
 
-router.post('/create', (req, res) => {
+router.post('/create', async (req, res) => {
     
     let cube = req.body;
     //validate
@@ -13,19 +13,26 @@ router.post('/create', (req, res) => {
         res.status(400).send('invalid request');
         return;
     };
-    //save data
-    cubeService.save(cube)
-    .then(() => {
+
+    try {
+        await cubeService.create(cube);
+
         res.redirect('/');
-    })
-    .catch(err => {
+    } catch(err) {
         res.status(400).send(err);
-    });
-    //redirect to page
+    }
+    //save data
+    // cubeService.create(cube)
+    // .then(() => {
+    //     res.redirect('/');
+    // })
+    // .catch(err => {
+    //     res.status(400).send(err);
+    // });
 });
 
-router.get('/details/:id', (req, res) => {
-    const cube = cubeService.getOne(req.params.id);
+router.get('/details/:id', async (req, res) => {
+    const cube = await cubeService.getOne(req.params.id).lean();
 
     res.render('details', { cube });
 });
