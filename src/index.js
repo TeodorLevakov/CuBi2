@@ -1,23 +1,19 @@
 const express = require('express');
-const handlebars = require('express-handlebars');
 const routes = require('./routes.js');
+const { startDB } = require('./config/database.js');
 
 const app = express();
 
+require('./config/handlebars.js')(app);
+
 app.use('/static', express.static('public'));
 app.use(express.urlencoded({extended: false}));
-
-app.engine('hbs', handlebars.engine({
-    extname : 'hbs'}));
-app.set('view engine', 'hbs');
-
-app.set('views', './src/views');
-
-
 app.use(routes);
 
-
-
-
-
-app.listen(5000, () => console.log('Server is on....'));
+startDB()
+    .then(() => {
+        app.listen(5000, () => console.log('Server is on....'));
+    })
+    .catch((err) => {
+        console.log('Db not started', err);
+    });
