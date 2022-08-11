@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const cubeService = require('../services/cubeService.js');
+const accessoiesService = require('../services/accessoryService.js');
 
 router.get('/create', (req, res) => {
     res.render('create');
@@ -37,10 +38,12 @@ router.get('/details/:id', async (req, res) => {
     res.render('details', { cube });
 });
 
-router.get('/:cubeId/attach-accessory', (req, res) => {
+router.get('/:cubeId/attach-accessory', async (req, res) => {
 
+    let cube = await cubeService.getOne(req.params.cubeId).lean();
+    let accessories = await accessoiesService.getAll().lean();
 
-    res.render('accessory/attach');
+    res.render('accessory/attach', {cube, accessories});
 });
 
 
