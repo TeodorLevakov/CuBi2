@@ -15,10 +15,12 @@ exports.getAll =  (search = '', fromInput, toInput) => {
     //         .filter(x => x.name.toLowerCase().includes(search.toLowerCase()))
     //         .filter(x => x.difficultyLevel >= from && x.difficultyLevel <= to);
 
-    //return [];
+    //return result;
 };
 
 exports.getOne = (cubeId) => Cube.findById(cubeId);
+
+exports.getOnePopulated = (cubeId) => Cube.findById(cubeId).populate('accessories');
 
 exports.create = (cube) => {
 
